@@ -1,6 +1,6 @@
 class CloverController < ApplicationController
   def callback
-    render json: current_user.parse_clover_code(params[:code])
+    render text: current_user.parse_clover_code(params[:code])[:access_token]
   end
 
   def authorize
