@@ -8,9 +8,9 @@ class User < ActiveRecord::Base
 
   after_initialize :ensure_session_token
 
-  def parse_clover_code code
+  def parse_clover_code code, mId
     token = o_auth_client.auth_code.get_token(code)
-    token.get('/v3/merchants')
+    token.get("/v3/merchants/#{mId}")
   end
 
   def save_access_token token
