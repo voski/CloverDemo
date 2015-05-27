@@ -9,9 +9,10 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
 
   def parse_clover_code code
-    token = o_auth_client.auth_code.get_token(code)
-    save_access_token token[:access_token]
-    token
+    # token = o_auth_client.auth_code.get_token(code)
+    # save_access_token token[:access_token]
+    # token
+    o_auth_client.auth_code.get_token(code)
   end
 
   def save_access_token token
