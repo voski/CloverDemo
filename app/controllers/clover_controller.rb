@@ -1,6 +1,6 @@
 class CloverController < ApplicationController
   def callback
-    render json: request
+    render json: current_user
   end
 
   def authorize

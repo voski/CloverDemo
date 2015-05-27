@@ -7,14 +7,13 @@ class User < ActiveRecord::Base
   after_initialize :ensure_session_token
 
   def get_clover_auth
-    callback_path = "#{Rails.application.routes.url_helpers.clover_path}/authorize"
     client = OAuth2::Client.new(
       'VTEQFHAVMJ5FP',
       '1f51d805-6f92-2101-663c-0f5513654feb',
       :site => 'https://clover.com/',
       :token_method  => :get
     )
-    oauth_endpoint = client.auth_code.authorize_url(:redirect_uri => "#{callback_path}")
+    oauth_endpoint = client.auth_code.authorize_url(:redirect_uri => "https://clover-demo.herokuapp.com/clover/callback")
   end
 
   def self.find_by_credentials(username, password)
