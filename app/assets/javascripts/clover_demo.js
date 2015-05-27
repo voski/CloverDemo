@@ -4,10 +4,7 @@ window.CloverDemo = {
   Views: {},
   Routers: {},
   initialize: function() {
-    alert('Hello from Backbone!');
+    this.router = new CloverDemo.Routers.Router({ $el: $('#main')});
+    Backbone.history.start();
   }
 };
-
-$(document).ready(function(){
-  CloverDemo.initialize();
-});

@@ -1,6 +1,24 @@
 class SessionsController < ApplicationController
-  def index
-    client = OAuth2::Client.new('VTEQFHAVMJ5FP', 'client_secret', :site => 'https://clover.com/', :token_method  => :get)
-    render json: 'test'
+  def new
+  end
+
+  def create
+    user = User.find_by_credentials(
+      params[:user][:username],
+      params[:user][:password]
+    )
+
+    if user
+      sign_in(user)
+      redirect_to links_url
+    else
+      flash.now[:errors] = ["Invalid username or password"]
+      render :new
+    end
+  end
+
+  def destroy
+    sign_out
+    redirect_to new_session_url
   end
 end
