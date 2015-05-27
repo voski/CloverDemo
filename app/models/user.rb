@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
       :site => 'https://clover.com/',
       :token_method  => :get
     )
-    oauth_endpoint = client.auth_code.authorize_url(:redirect_uri => "callback_path")
+    oauth_endpoint = client.auth_code.authorize_url(:redirect_uri => "#{callback_path}")
   end
 
   def self.find_by_credentials(username, password)
