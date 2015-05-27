@@ -4,13 +4,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    client = OAuth2::Client.new(
-      'VTEQFHAVMJ5FP',
-      '1f51d805-6f92-2101-663c-0f5513654feb',
-      :site => 'https://clover.com/',
-      :token_method  => :get
-    )
-    oauth_endpoint = client.auth_code.authorize_url(:redirect_uri => "#{users_url current_user}") 
     @user = User.find(params[:id])
   end
 
