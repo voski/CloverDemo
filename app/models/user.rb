@@ -2,11 +2,20 @@ class User < ActiveRecord::Base
   validates :username, :password_digest, :session_token, presence: true
   validates :password, length: { minimum: 6, allow_nil: true }
 
+  has_many :auths
+
   attr_reader :password
 
   after_initialize :ensure_session_token
+
   def parse_clover_code code
-    o_auth_client.auth_code.get_token(code)
+    token = o_auth_client.auth_code.get_token(code)
+    save_access_token token[:access_token]
+    token
+  end
+
+  def save_access_token token
+    self.auths.save(auth_token: code, auth_type: "clover")
   end
 
   def get_clover_auth
