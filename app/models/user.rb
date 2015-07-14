@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   def parse_clover_code code, mId
     token = o_auth_client.auth_code.get_token(code)
-    token.get("/v3/merchants/#{mId}", => { 'expand' => 'owner' })
+    token.get("/v3/merchants/#{mId}", :params => { 'expand' => 'lineItems' })
   end
 
   def save_access_token token
